@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+jinja2
+aiohttp
+langchain-core
+langchain-openai
+pyttsx3
+SpeechRecognition
+python-multipart
+
