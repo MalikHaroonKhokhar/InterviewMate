@@ -1,0 +1,111 @@
+/* styles.css - Custom styles for InterviewMate */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    padding-bottom: 2rem;
+}
+
+.card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1rem;
+    font-weight: 500;
+}
+
+.interview-topic {
+    margin-top: -0.5rem;
+}
+
+.interview-question {
+    background-color: #e3f2fd;
+    border-color: #90caf9;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.feedback-content {
+    white-space: pre-line;
+}
+
+.feedback-content h1, 
+.feedback-content h2, 
+.feedback-content h3, 
+.feedback-content h4, 
+.feedback-content h5 {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.feedback-content ul, 
+.feedback-content ol {
+    padding-left: 1.5rem;
+}
+
+/* Voice recording styles */
+.voice-controls {
+    display: flex;
+    align-items: center;
+}
+
+#recordingStatus {
+    font-size: 0.9rem;
+}
+
+#recordingStatus.text-danger {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Summary page */
+.accordion-button:not(.collapsed) {
+    background-color: #e3f2fd;
+    color: #0d6efd;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+/* Print styles for summary */
+@media print {
+    .btn, 
+    .no-print {
+        display: none !important;
+    }
+    
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .accordion-button {
+        display: block !important;
+        background-color: transparent !important;
+    }
+    
+    .accordion-collapse {
+        display: block !important;
+    }
+}

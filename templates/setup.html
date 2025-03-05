@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewMate - Setup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="h3 mb-0">Interview Setup</h1>
+                    </div>
+                    <div class="card-body">
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+                        
+                        <form method="POST" action="/setup">
+                            <div class="mb-3">
+                                <label for="job_topic" class="form-label">Job Topic</label>
+                                <input type="text" class="form-control" id="job_topic" name="job_topic" required
+                                       placeholder="E.g., Software Engineering, Data Science, Marketing">
+                                <div class="form-text">Enter the job field you want to practice for.</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="questions_per_round" class="form-label">Questions Per Round</label>
+                                <input type="number" class="form-control" id="questions_per_round" name="questions_per_round" 
+                                       min="1" max="10" value="3" required>
+                                <div class="form-text">How many questions would you like to practice per round?</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="card">
+                                    <div class="card-header">Voice Settings</div>
+                                    <div class="card-body">
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="use_voice" name="use_voice">
+                                            <label class="form-check-label" for="use_voice">
+                                                <i class="bi bi-mic-fill me-1"></i> Voice Input
+                                            </label>
+                                            <div class="form-text">Enable voice input for your answers (requires microphone access).</div>
+                                        </div>
+                                        
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="use_speech" name="use_speech" checked>
+                                            <label class="form-check-label" for="use_speech">
+                                                <i class="bi bi-volume-up-fill me-1"></i> Voice Output
+                                            </label>
+                                            <div class="form-text">Enable text-to-speech for questions and feedback.</div>
+                                        </div>
+                                        
+                                        <div class="mt-2">
+                                            <small id="speechStatus" class="text-success"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Start Interview Practice</button>
+                                <a href="/logout" class="btn btn-outline-secondary">Logout</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', path='/voice-output.js') }}"></script>
+</body>
+</html>

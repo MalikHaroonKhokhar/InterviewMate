@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterviewMate - Interview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h1 class="h3 mb-0">Interview Question</h1>
+                        <span class="badge bg-light text-dark">Question {{ session.question_number }} of {{ session.questions_per_round }}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="interview-topic mb-3 d-flex justify-content-between">
+                            <span class="badge bg-secondary">Topic: {{ session.job_topic }}</span>
+                            <small id="speechStatus" class="text-success"></small>
+                        </div>
+                        
+                        <div class="interview-question alert alert-info">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">{{ session.current_question }}</h5>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.speechUtils.speakQuestion()">
+                                    <i class="bi bi-volume-up-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <form method="POST" action="/submit-answer" id="answerForm">
+                            <div class="mb-3">
+                                <label for="answer" class="form-label">Your Answer</label>
+                                {% if session.use_voice %}
+                                <div class="voice-controls mb-2">
+                                    <button type="button" id="startRecording" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-mic-fill"></i> Start Recording
+                                    </button>
+                                    <button type="button" id="stopRecording" class="btn btn-sm btn-danger" disabled>
+                                        <i class="bi bi-stop-fill"></i> Stop Recording
+                                    </button>
+                                    <span id="recordingStatus" class="ms-2">Not recording</span>
+                                </div>
+                                {% endif %}
+                                <textarea class="form-control" id="answer" name="answer" rows="6" required></textarea>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Submit Answer</button>
+                                <a href="/logout" class="btn btn-outline-secondary">End Session</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', path='/voice-output.js') }}"></script>
+    {% if session.use_voice %}
+    <script src="{{ url_for('static', path='/voice-input.js') }}"></script>
+    {% endif %}
+</body>
