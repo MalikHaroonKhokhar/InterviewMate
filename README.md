@@ -1,5 +1,5 @@
 # InterviewMate
-InterviewMate is an AI-powered interview practice application that helps users prepare for job interviews through realistic question-and-answer sessions with personalized feedback. The application simulates real interview scenarios, allowing users to practice their responses and receive constructive feedback to improve their interview skills.
+InterviewMate is an AI-powered interview practice application that helps users prepare for job interviews through realistic question-and-answer sessions with personalized feedback. The application simulates real interview scenarios, allowing users to practice their responses and receive constructive feedback to improve their interview skills on any topic.
 
 ## Features
 
@@ -23,3 +23,5 @@ Voice Features: Web Speech API, pyttsx3, speech_recognition
 Python 3.8+
 OpenAI API key
 Modern web browser with support for Web Speech API (for voice features)
+
+
