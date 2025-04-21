@@ -67,7 +67,7 @@ class VoiceEnabledInterviewMate:
             raise ValueError("API key is required")
         
         self.llm = ChatOpenAI(
-            #base_url="https://models.inference.ai.azure.com",
+            base_url="https://models.inference.ai.azure.com",
             api_key=api_key,
             model="gpt-4o-mini",
             temperature=0.1,
