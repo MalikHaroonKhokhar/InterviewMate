@@ -2,12 +2,14 @@ from fastapi import FastAPI, Request, Form, Depends, HTTPException, status, Cook
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.base import BaseHTTPMiddleware
 import uuid
 import os
 import aiohttp
 from typing import Optional
 import uvicorn
 from pydantic import BaseModel
+import traceback
 
 # Import from other files
 from redis_session_manager import get_session, update_session, delete_session
@@ -21,6 +23,26 @@ from interview_controller import (
 
 # Create FastAPI app
 app = FastAPI(title="InterviewMate Frontend")
+
+# Add middleware for error handling
+class ErrorLoggingMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        try:
+            response = await call_next(request)
+            return response
+        except Exception as e:
+            print(f"Error in request: {str(e)}")
+            print(f"Traceback: {traceback.format_exc()}")
+            return templates.TemplateResponse(
+                "error.html",
+                {
+                    "request": request,
+                    "error": "An internal server error occurred. Please try again."
+                },
+                status_code=500
+            )
+
+app.add_middleware(ErrorLoggingMiddleware)
 
 # Setup templates and static files
 templates = Jinja2Templates(directory="templates")
