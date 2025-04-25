@@ -22,13 +22,15 @@ def get_redis_client():
             # Create Redis client with explicit configuration
             client = redis.Redis(
                 host=REDIS_HOST,
-                port=REDIS_PORT,
+                port=int(REDIS_PORT),  # Ensure port is converted to int
                 username=REDIS_USERNAME,
                 password=REDIS_PASSWORD,
                 decode_responses=True,
-                socket_timeout=5,  # 5 seconds timeout
-                socket_connect_timeout=5,
-                retry_on_timeout=True
+                socket_timeout=10,  # Increased timeout
+                socket_connect_timeout=10,  # Increased connect timeout
+                retry_on_timeout=True,
+                max_connections=10,  # Limit max connections
+                health_check_interval=30  # Add health check
             )
             
             # Test the connection
@@ -44,6 +46,9 @@ def get_redis_client():
             else:
                 print(f"Failed to connect to Redis after {max_retries} attempts: {str(e)}")
                 raise
+        except Exception as e:
+            print(f"Unexpected error while connecting to Redis: {str(e)}")
+            raise
 
 # Initialize Redis client
 try:
